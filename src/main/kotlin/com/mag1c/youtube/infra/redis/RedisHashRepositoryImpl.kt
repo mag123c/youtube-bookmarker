@@ -2,10 +2,10 @@ package com.mag1c.youtube.infra.redis
 
 import org.springframework.data.redis.core.HashOperations
 import org.springframework.data.redis.core.RedisTemplate
-import org.springframework.stereotype.Repository
+import org.springframework.stereotype.Component
 
-@Repository
-class RedisHashRepositoryImpl<K, HK, HV : Any>(
+@Component
+class RedisHashRepositoryImpl<K: Any, HK: Any, HV : Any>(
     private val redisTemplate: RedisTemplate<K, HV>
 ): RedisHashRepository<K, HK, HV> {
 

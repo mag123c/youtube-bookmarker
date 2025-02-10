@@ -1,7 +1,6 @@
-package bookmark
+package com.mag1c.youtube.domain.bookmark.repository
 
 import com.mag1c.youtube.domain.bookmark.entity.RedisBookmark
-import com.mag1c.youtube.domain.bookmark.repository.BookmarkRedisRepository
 import com.mag1c.youtube.infra.redis.RedisHashRepositoryImpl
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
@@ -13,11 +12,8 @@ import org.springframework.test.context.ActiveProfiles
 @SpringBootTest
 @ActiveProfiles("test")
 class BookmarkRedisRepositoryTest @Autowired constructor(
-    private val redisTemplate: RedisTemplate<String, RedisBookmark>
+    private val bookmarkRedisRepository: BookmarkRedisRepository
 ) : StringSpec({
-
-    val redisHashRepository = RedisHashRepositoryImpl<String, String, RedisBookmark>(redisTemplate)
-    val bookmarkRedisRepository = BookmarkRedisRepository(redisHashRepository)
 
     "Redis에 북마크를 저장한다." {
         // given
