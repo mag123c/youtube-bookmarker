@@ -1,0 +1,31 @@
+package com.mag1c.youtube.infra.redis
+
+import org.springframework.data.redis.core.HashOperations
+import org.springframework.data.redis.core.RedisTemplate
+import org.springframework.stereotype.Repository
+
+@Repository
+class RedisHashRepositoryImpl<K, HK, HV : Any>(
+    private val redisTemplate: RedisTemplate<K, HV>
+): RedisHashRepository<K, HK, HV> {
+
+    private val hashOperations: HashOperations<K, HK, HV> = redisTemplate.opsForHash()
+
+    override fun put(key: K, hashKey: HK, value: HV) {
+        hashOperations.put(key, hashKey, value)
+    }
+
+    override fun get(key: K, hashKey: HK): HV? {
+        return hashOperations.get(key, hashKey)
+    }
+
+    override fun delete(key: K, hashKey: HK) {
+        hashOperations.delete(key, hashKey)
+    }
+
+    override fun findAll(key: K): Map<HK, HV> {
+        return hashOperations.entries(key)
+    }
+
+
+}
