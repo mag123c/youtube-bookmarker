@@ -1,4 +1,4 @@
-package com.mag1c.youtube.domain.bookmark
+package com.mag1c.youtube.domain.bookmark.repository
 
 import com.mag1c.youtube.domain.bookmark.entity.RedisBookmark
 import com.mag1c.youtube.infra.redis.RedisHashRepository
