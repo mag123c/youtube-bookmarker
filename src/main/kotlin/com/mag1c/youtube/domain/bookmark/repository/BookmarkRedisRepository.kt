@@ -12,6 +12,7 @@ class BookmarkRedisRepository(
 ) {
     fun save(bookmark: RedisBookmark) {
         try {
+            println("SAVE SUCCESS $bookmark")
             redisHashRepository.put("bookmark:${bookmark.userId}", bookmark.videoId, bookmark)
         } catch (e: RedisConnectionFailureException) {
             println("Redis 연결 오류 발생: ${e.message}")
