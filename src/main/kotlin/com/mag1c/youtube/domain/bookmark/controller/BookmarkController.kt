@@ -38,4 +38,13 @@ class BookmarkController(
         val redisBookmark = bookmarkService.saveBookmark(userId, req)
         return ResponseEntity.created(URI.create(redisBookmark.videoId)).body(redisBookmark)
     }
+
+    @DeleteMapping
+    fun deleteBookmark(
+        @RequestHeader("userId", required = true) userId: Int,
+        @PathVariable videoId: String
+    ): ResponseEntity.HeadersBuilder<*> {
+        bookmarkService.deleteBookmark(userId, videoId)
+        return ResponseEntity.noContent()
+    }
 }
