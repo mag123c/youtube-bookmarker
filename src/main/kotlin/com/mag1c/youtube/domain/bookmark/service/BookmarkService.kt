@@ -25,7 +25,7 @@ class BookmarkService(
     }
 
     /**
-     * @API GET /bookmarks/:id
+     * @API GET /bookmarks/:videoId
      */
     fun getBookmark(userId: Int, videoId: String): BookmarkResponse {
         val redisBookmark = bookmarkRedisRepository.findById(userId, videoId)
@@ -52,6 +52,13 @@ class BookmarkService(
         bookmarkRedisRepository.save(redisBookmark)
 
         return BookmarkMapper.toDto(redisBookmark)
+    }
+
+    /**
+     * @API DELETE /bookmarks/:videoId
+     */
+    fun deleteBookmark(userId: Int, videoId: String) {
+        bookmarkRedisRepository.delete(userId, videoId)
     }
 
 
