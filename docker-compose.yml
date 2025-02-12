@@ -1,18 +1,38 @@
 version: '3.8'
 
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spring_app
+    restart: always
+    depends_on:
+      - mysql
+      - redis
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3304/youtube_bookmark?serverTimezone=UTC&characterEncoding=UTF-8
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 1234
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+
   mysql:
     image: mysql:8.0
     container_name: mysql
     restart: always
     environment:
       MYSQL_DATABASE: youtube_bookmark
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 1234
+      MYSQL_ROOT_PASSWORD: 1234
     ports:
-      - "3306:3306"
+      - "3301:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./mysql-init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - backend
 
