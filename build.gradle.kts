@@ -20,17 +20,24 @@ dependencies {
     implementation("mysql:mysql-connector-java:8.0.33") // MySQL 드라이버
     implementation("org.jetbrains.kotlin:kotlin-reflect") // 리플렉션 기능
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3") // 코루틴
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.0") // jackson kotlin
 
     testImplementation("io.kotest:kotest-runner-junit5:5.7.2")  // kotest core
     testImplementation("io.kotest:kotest-assertions-core:5.7.2") // kotest assertions
     testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.3") // spring integration
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.mockk:mockk:1.13.5")
+    testImplementation(kotlin("test"))
 }
 
 tasks.test {
     useJUnitPlatform()
 }
+
+tasks.withType<Test> {
+    jvmArgs("-Xmx2g")
+}
+
 
 kotlin {
     jvmToolchain(17)

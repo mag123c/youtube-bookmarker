@@ -1,27 +1,41 @@
 package com.mag1c.youtube.domain.bookmark.controller
 
 import com.mag1c.youtube.domain.bookmark.dto.BookmarkRequest
-import com.mag1c.youtube.domain.bookmark.entity.RedisBookmark
-import com.mag1c.youtube.domain.bookmark.mapper.BookmarkMapper
-import com.mag1c.youtube.domain.bookmark.repository.BookmarkRedisRepository
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import com.mag1c.youtube.domain.bookmark.dto.BookmarkResponse
+import com.mag1c.youtube.domain.bookmark.service.BookmarkService
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
+import java.net.URI
 
 @RestController
+@RequestMapping("/bookmarks")
 class BookmarkController(
-    @Autowired val repo: BookmarkRedisRepository
+    private val bookmarkService: BookmarkService
 ) {
-    @GetMapping("health")
-    fun health(): String {
-        return "UP"
+
+    @GetMapping
+    fun getBookmarks(
+        @RequestHeader("userId", required = true) userId: Int
+    ): ResponseEntity<Map<String, List<BookmarkResponse>>> {
+        val bookmarks = bookmarkService.getBookmakrs(userId)
+        return ResponseEntity.ok(bookmarks)
     }
 
-    @PostMapping("test")
-    fun test(@RequestBody req: BookmarkRequest) {
-        val bookmark = BookmarkMapper.toEntity(req)
-        repo.save(bookmark)
+    @GetMapping("/{videoId}")
+    fun getBookmark(
+        @RequestHeader("userId", required = true) userId: Int,
+        @PathVariable videoId: String
+    ): ResponseEntity<BookmarkResponse> {
+        val bookmark = bookmarkService.getBookmark(userId, videoId)
+        return ResponseEntity.ok(bookmark)
+    }
+
+    @PostMapping
+    fun saveBookmark(
+        @RequestHeader("userId", required = true) userId: Int,
+        @RequestBody req: BookmarkRequest
+    ): ResponseEntity<BookmarkResponse> {
+        val redisBookmark = bookmarkService.saveBookmark(userId, req)
+        return ResponseEntity.created(URI.create(redisBookmark.videoId)).body(redisBookmark)
     }
 }

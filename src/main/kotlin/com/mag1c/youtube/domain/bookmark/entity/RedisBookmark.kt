@@ -12,9 +12,15 @@ data class RedisBookmark(
     @Id
     val id: String, //userId:videoId
 
-    val userId: String,
+    val userId: Int,
     val videoId: String,
     val title: String,
+    val publishedAt: String,
     val thumbnailUrl: String,
-    val comment: String? = null,
-): Serializable
+    val tags: List<String>,
+    val viewCount: Long,
+    val likeCount: Long,
+    val commentCount: Long,
+    val category: String?,
+    val customComment: String?,
+) : Serializable
