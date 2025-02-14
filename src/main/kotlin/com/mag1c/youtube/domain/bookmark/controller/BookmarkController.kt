@@ -1,5 +1,6 @@
 package com.mag1c.youtube.domain.bookmark.controller
 
+import com.mag1c.youtube.config.UserId
 import com.mag1c.youtube.domain.bookmark.dto.BookmarkRequest
 import com.mag1c.youtube.domain.bookmark.dto.BookmarkResponse
 import com.mag1c.youtube.domain.bookmark.service.BookmarkService
@@ -15,7 +16,7 @@ class BookmarkController(
 
     @GetMapping
     fun getBookmarks(
-        @RequestHeader("userId", required = true) userId: Int,
+        @UserId userId: Int,
         @RequestParam(name = "category", required = true) category: String
     ): ResponseEntity<Map<String, List<BookmarkResponse>>> {
         val bookmarks = bookmarkService.getBookmakrs(userId, category)
@@ -24,7 +25,7 @@ class BookmarkController(
 
     @GetMapping("/{videoId}")
     fun getBookmark(
-        @RequestHeader("userId", required = true) userId: Int,
+        @UserId userId: Int,
         @PathVariable videoId: String
     ): ResponseEntity<BookmarkResponse> {
         val bookmark = bookmarkService.getBookmark(userId, videoId)
@@ -33,7 +34,7 @@ class BookmarkController(
 
     @PostMapping
     fun saveBookmark(
-        @RequestHeader("userId", required = true) userId: Int,
+        @UserId userId: Int,
         @RequestBody req: BookmarkRequest
     ): ResponseEntity<BookmarkResponse> {
         val redisBookmark = bookmarkService.saveBookmark(userId, req)
@@ -42,7 +43,7 @@ class BookmarkController(
 
     @DeleteMapping
     fun deleteBookmark(
-        @RequestHeader("userId", required = true) userId: Int,
+        @UserId userId: Int,
         @PathVariable videoId: String
     ): ResponseEntity.HeadersBuilder<*> {
         bookmarkService.deleteBookmark(userId, videoId)
