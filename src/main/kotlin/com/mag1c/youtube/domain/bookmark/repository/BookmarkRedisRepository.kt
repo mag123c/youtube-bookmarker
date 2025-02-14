@@ -23,7 +23,7 @@ class BookmarkRedisRepository(
         }
     }
 
-    fun findByUserId(userId: Int): Map<String, RedisBookmark> {
+    fun findAll(userId: Int): Map<String, RedisBookmark> {
         return try {
             redisHashRepository.findAll("bookmark:$userId")
         } catch (e: RedisConnectionFailureException) {
@@ -35,7 +35,7 @@ class BookmarkRedisRepository(
         }
     }
 
-    fun findById(userId: Int, videoId: String): RedisBookmark? {
+    fun findByVideoId(userId: Int, videoId: String): RedisBookmark? {
         return try {
             redisHashRepository.get("bookmark:$userId", videoId)
         } catch (e: RedisConnectionFailureException) {

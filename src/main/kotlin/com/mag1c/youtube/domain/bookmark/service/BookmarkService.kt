@@ -16,10 +16,12 @@ class BookmarkService(
 ) {
     /**
      * @API GET /bookmarks
+     * 카테고리 기준으로 가져오기
      */
-    fun getBookmakrs(userId: Int): Map<String, List<BookmarkResponse>> {
-        val redisBookmarks = bookmarkRedisRepository.findByUserId(userId)
-        return redisBookmarks.values
+    fun getBookmakrs(userId: Int, category: String): Map<String, List<BookmarkResponse>> {
+        val allBookmarks = bookmarkRedisRepository.findAll(userId)
+        val filteredBookmarks = allBookmarks.filterValues { it.category == category }
+        return filteredBookmarks.values
             .map { BookmarkMapper.toDto(it) }
             .groupBy { it.category }
     }
@@ -28,7 +30,7 @@ class BookmarkService(
      * @API GET /bookmarks/:videoId
      */
     fun getBookmark(userId: Int, videoId: String): BookmarkResponse {
-        val redisBookmark = bookmarkRedisRepository.findById(userId, videoId)
+        val redisBookmark = bookmarkRedisRepository.findByVideoId(userId, videoId)
 
         if (redisBookmark == null) {
             throw ResponseStatusException(HttpStatus.NOT_FOUND, "북마크를 찾을 수 없습니다.")

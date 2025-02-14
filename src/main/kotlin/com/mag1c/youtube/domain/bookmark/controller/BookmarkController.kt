@@ -15,9 +15,10 @@ class BookmarkController(
 
     @GetMapping
     fun getBookmarks(
-        @RequestHeader("userId", required = true) userId: Int
+        @RequestHeader("userId", required = true) userId: Int,
+        @RequestParam(name = "category", required = true) category: String
     ): ResponseEntity<Map<String, List<BookmarkResponse>>> {
-        val bookmarks = bookmarkService.getBookmakrs(userId)
+        val bookmarks = bookmarkService.getBookmakrs(userId, category)
         return ResponseEntity.ok(bookmarks)
     }
 
