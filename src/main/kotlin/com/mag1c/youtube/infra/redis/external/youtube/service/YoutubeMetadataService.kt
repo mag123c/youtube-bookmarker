@@ -64,7 +64,7 @@ class YoutubeMetadataService(
     /**
      * 유튜브 URL에서 videoId 및 timestamp(선택)를 추출
      */
-    private fun parseYouTubeUrlWithUri(url: String): Pair<String, Int?> {
+    private fun parseYouTubeUrlWithUri(url: String): Pair<String, String?> {
         val uri = URI(url)
         val queryParams = uri.query
             ?.split("&")
@@ -77,7 +77,7 @@ class YoutubeMetadataService(
         val videoId = queryParams["v"]
             ?: throw IllegalArgumentException("Invalid YouTube URL: Video ID not found")
 
-        val timestamp = queryParams["t"]?.toIntOrNull()
+        val timestamp = queryParams["t"]?.toString()
 
         return videoId to timestamp
     }

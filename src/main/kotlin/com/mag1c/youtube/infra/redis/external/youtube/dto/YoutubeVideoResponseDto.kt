@@ -13,7 +13,7 @@ data class YoutubeVideoResponseDto(
     val seenTime: String?,
 ) {
     companion object {
-        fun from(item: YoutubeVideoItem, timestamp: String): YoutubeVideoResponseDto {
+        fun from(item: YoutubeVideoItem, timestamp: String?): YoutubeVideoResponseDto {
             return YoutubeVideoResponseDto(
                 videoId = item.id,
                 title = item.snippet.localized.title ?: item.snippet.title,
@@ -24,7 +24,7 @@ data class YoutubeVideoResponseDto(
                 viewCount = item.statistics.viewCount?.toLongOrNull() ?: 0,
                 likeCount = item.statistics.likeCount?.toLongOrNull() ?: 0,
                 commentCount = item.statistics.commentCount?.toLongOrNull() ?: 0,
-                seenTime = timestamp ?: null
+                seenTime = timestamp
             )
         }
     }
