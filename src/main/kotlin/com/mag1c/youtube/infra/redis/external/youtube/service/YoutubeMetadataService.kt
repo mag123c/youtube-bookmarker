@@ -58,7 +58,7 @@ class YoutubeMetadataService(
         val item = youtubeApiResponse.items.firstOrNull()
             ?: throw IllegalArgumentException("YouTube API 응답에서 items가 비어있음!")
 
-        return YoutubeVideoResponseDto.from(item)
+        return YoutubeVideoResponseDto.from(item, timestamp)
     }
 
     /**

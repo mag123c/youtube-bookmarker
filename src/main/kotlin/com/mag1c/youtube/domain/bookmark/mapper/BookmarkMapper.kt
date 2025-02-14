@@ -21,6 +21,7 @@ class BookmarkMapper {
                 commentCount = youtubeMetadata.commentCount,
                 category = req.category,
                 customComment = req.customComment,
+                seenTime = youtubeMetadata.seenTime
             )
         }
 
@@ -28,7 +29,7 @@ class BookmarkMapper {
             return BookmarkResponse(
                 videoId = redisBookmark.videoId,
                 title = redisBookmark.title,
-                _category = redisBookmark.category,
+                category = redisBookmark.category,
                 customComment = redisBookmark.customComment,
                 thumbnailUrl = redisBookmark.thumbnailUrl,
                 publishedAt = redisBookmark.publishedAt,

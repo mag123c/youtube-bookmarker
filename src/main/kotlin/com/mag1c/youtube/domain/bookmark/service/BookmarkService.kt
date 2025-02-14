@@ -38,7 +38,6 @@ class BookmarkService(
         // 1. 북마크 정보 조회
         val youtubeMetadata = youtubeMetadataService.getMetadata(req.url)
 
-
         // 2. 레디스에 저장
         val redisBookmark = BookmarkMapper.toEntity(userId, youtubeMetadata, req)
 

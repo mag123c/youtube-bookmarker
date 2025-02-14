@@ -21,7 +21,8 @@ data class RedisBookmark(
     val viewCount: Long,
     val likeCount: Long,
     val commentCount: Long,
-    val category: String?,
+    val category: String,
     val customComment: String?,
+    val seenTime: String?,
 ) : Serializable
 
