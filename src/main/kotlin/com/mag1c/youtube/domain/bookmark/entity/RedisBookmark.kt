@@ -24,3 +24,4 @@ data class RedisBookmark(
     val category: String?,
     val customComment: String?,
 ) : Serializable
+
