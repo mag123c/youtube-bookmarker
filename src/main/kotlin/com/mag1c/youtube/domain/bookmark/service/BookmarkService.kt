@@ -18,7 +18,7 @@ class BookmarkService(
      * @API GET /bookmarks
      * 카테고리 기준으로 가져오기
      */
-    fun getBookmakrs(userId: Int, category: String): Map<String, List<BookmarkResponse>> {
+    fun getBookmarks(userId: Int, category: String): Map<String, List<BookmarkResponse>> {
         val allBookmarks = bookmarkRedisRepository.findAll(userId)
         val filteredBookmarks = allBookmarks.filterValues { it.category == category }
         return filteredBookmarks.values
