@@ -9,7 +9,7 @@ class BookmarkMapper {
     companion object {
         fun toEntity(userId: Int, youtubeMetadata: YoutubeVideoResponseDto, req: BookmarkRequest): RedisBookmark {
             return RedisBookmark(
-                id = "bookmark:${userId}",
+                id = "bookmark:${userId}:${req.category}",
                 userId = userId,
                 videoId = youtubeMetadata.videoId,
                 title = youtubeMetadata.title,

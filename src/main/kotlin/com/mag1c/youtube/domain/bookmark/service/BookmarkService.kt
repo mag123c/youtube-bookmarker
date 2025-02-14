@@ -18,12 +18,15 @@ class BookmarkService(
      * @API GET /bookmarks
      * 카테고리 기준으로 가져오기
      */
-    fun getBookmarks(userId: Int, category: String): Map<String, List<BookmarkResponse>> {
-        val allBookmarks = bookmarkRedisRepository.findAll(userId)
-        val filteredBookmarks = allBookmarks.filterValues { it.category == category }
-        return filteredBookmarks.values
-            .map { BookmarkMapper.toDto(it) }
-            .groupBy { it.category }
+    fun getBookmarks(userId: Int, category: String): List<BookmarkResponse> {
+        val key = "bookmark:$userId:$category"
+
+        val bookmarkItemIds = bookmarkRedisRepository.getBookmarkItemIdsByCategory(key)
+        val allBookmarks = bookmarkItemIds.mapNotNull { itemId ->
+            bookmarkRedisRepository.getBookmarkByItemId(key, itemId)?.let { BookmarkMapper.toDto(it) }
+        }
+
+        return allBookmarks
     }
 
     /**
@@ -38,6 +41,10 @@ class BookmarkService(
 
         // 2. 레디스에 저장
         val redisBookmark = BookmarkMapper.toEntity(userId, youtubeMetadata, req)
+
+        // videoId 저장 (ZSet)
+        bookmarkRedisRepository.saveVideoId(redisBookmark)
+        // 데이터 저장 (Hash)
         bookmarkRedisRepository.save(redisBookmark)
 
         return BookmarkMapper.toDto(redisBookmark)
