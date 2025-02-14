@@ -23,15 +23,6 @@ class BookmarkController(
         return ResponseEntity.ok(bookmarks)
     }
 
-    @GetMapping("/{videoId}")
-    fun getBookmark(
-        @UserId userId: Int,
-        @PathVariable videoId: String
-    ): ResponseEntity<BookmarkResponse> {
-        val bookmark = bookmarkService.getBookmark(userId, videoId)
-        return ResponseEntity.ok(bookmark)
-    }
-
     @PostMapping
     fun saveBookmark(
         @UserId userId: Int,

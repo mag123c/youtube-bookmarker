@@ -27,19 +27,6 @@ class BookmarkService(
     }
 
     /**
-     * @API GET /bookmarks/:videoId
-     */
-    fun getBookmark(userId: Int, videoId: String): BookmarkResponse {
-        val redisBookmark = bookmarkRedisRepository.findByVideoId(userId, videoId)
-
-        if (redisBookmark == null) {
-            throw ResponseStatusException(HttpStatus.NOT_FOUND, "북마크를 찾을 수 없습니다.")
-        }
-
-        return BookmarkMapper.toDto(redisBookmark)
-    }
-
-    /**
      * @API POST /bookmarks
      * 1. 저장할 영상 URL로 유튜브 메타데이터 조회 (3rd party GCP API)
      * 2. 레디스에 저장
