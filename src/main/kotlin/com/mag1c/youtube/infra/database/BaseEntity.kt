@@ -2,7 +2,7 @@ package com.mag1c.youtube.infra.database
 
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
-import org.hibernate.annotations.UpdateTimestamp
+import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDateTime
 
@@ -12,16 +12,15 @@ abstract class BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    open val id: Long? = null
+    var id: Long? = null
+        protected set
 
     @CreationTimestamp
     @Column(updatable = false, nullable = false)
-    val createdAt: LocalDateTime = LocalDateTime.now()
+    lateinit var createdAt: LocalDateTime
 
-    @UpdateTimestamp
+    @LastModifiedDate
     @Column(nullable = false)
     var updatedAt: LocalDateTime = LocalDateTime.now()
-
-    @Column(nullable = true)
-    var deletedAt: LocalDateTime? = null
+        private set
 }

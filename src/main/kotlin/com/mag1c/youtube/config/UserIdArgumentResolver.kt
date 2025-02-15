@@ -23,6 +23,6 @@ class UserIdArgumentResolver : HandlerMethodArgumentResolver {
     ): Any? {
         val request: HttpServletRequest = webRequest.getNativeRequest(HttpServletRequest::class.java)!!
         val userId = request.getHeader("userId") ?: throw IllegalArgumentException("userId 헤더가 없습니다.")
-        return userId.toInt()
+        return userId.toLong()
     }
 }
