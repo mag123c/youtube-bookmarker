@@ -1,8 +1,8 @@
-package com.mag1c.youtube.infra.redis.external.youtube.service
+package com.mag1c.youtube.infra.external.service
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.mag1c.youtube.infra.redis.external.youtube.dto.YoutubeApiResponse
-import com.mag1c.youtube.infra.redis.external.youtube.dto.YoutubeVideoResponseDto
+import com.mag1c.youtube.infra.external.dto.YoutubeApiResponse
+import com.mag1c.youtube.infra.external.dto.YoutubeVideoResponseDto
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.web.client.HttpClientErrorException

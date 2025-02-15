@@ -8,7 +8,7 @@ import org.springframework.test.context.ActiveProfiles
 @SpringBootTest
 @ActiveProfiles("test")
 class BookmarkRedisRepositoryTest @Autowired constructor(
-    private val bookmarkRedisRepository: BookmarkRedisRepository
+    private val bookmarkRedisRepository: BookmarkHashRepository
 ) : StringSpec({
 
 })

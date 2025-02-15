@@ -1,4 +1,4 @@
-package com.mag1c.youtube.infra.redis.external.youtube.dto
+package com.mag1c.youtube.infra.external.dto
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
