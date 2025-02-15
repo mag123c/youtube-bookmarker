@@ -5,9 +5,11 @@ import com.mag1c.youtube.domain.bookmark.repository.BookmarkCategoryRepository
 import com.mag1c.youtube.domain.user.entity.User
 import com.mag1c.youtube.domain.user.repository.UserRepository
 import org.springframework.boot.CommandLineRunner
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
+@Profile("local")
 @Component
 class DataInitializer(
     private val userRepository: UserRepository,
