@@ -1,9 +1,12 @@
 package com.mag1c.youtube.domain.bookmark.service
 
 import com.mag1c.youtube.domain.bookmark.dto.BookmarkCategoryRequest
+import com.mag1c.youtube.domain.bookmark.entity.BookmarkCategory
 import com.mag1c.youtube.domain.bookmark.mapper.BookmarkCategoryMapper
 import com.mag1c.youtube.domain.bookmark.repository.BookmarkCategoryRepository
+import com.mag1c.youtube.domain.user.entity.User
 import com.mag1c.youtube.domain.user.service.UserService
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException
 import org.springframework.stereotype.Service
 
 @Service
@@ -27,7 +30,7 @@ class BookmarkCategoryService(
      */
     fun saveCategory(userId: Long, req: BookmarkCategoryRequest): String {
         val user = userService.findUserById(userId)
-        val mappedToCategoryEntity = BookmarkCategoryMapper.toEntity(req.name, user)
+        val mappedToCategoryEntity = BookmarkCategoryMapper.toEntity(req.categoryName, user)
 
         return bookmarkCategoryRepository.save(mappedToCategoryEntity).name
     }
@@ -38,10 +41,17 @@ class BookmarkCategoryService(
      */
     fun deleteCategory(userId: Long, req: BookmarkCategoryRequest): Unit {
         val user = userService.findUserById(userId)
-        val categoryEntity = bookmarkCategoryRepository.findByUserAndName(user, req.name)
+        val categoryEntity = this.getCategory(user, req.categoryName)
+        bookmarkCategoryRepository.delete(categoryEntity)
+    }
 
-        if (categoryEntity != null) {
-            bookmarkCategoryRepository.delete(categoryEntity)
-        }
+    /**
+     * @Internal
+     */
+    fun getCategory(user: User, categoryName: String): BookmarkCategory {
+        val categoryEntity =
+            bookmarkCategoryRepository.findByUserAndName(user, categoryName) ?: throw NotFoundException()
+
+        return categoryEntity
     }
 }

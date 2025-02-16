@@ -3,6 +3,7 @@ package com.mag1c.youtube.domain.bookmark.controller
 import com.mag1c.youtube.config.UserId
 import com.mag1c.youtube.domain.bookmark.dto.BookmarkCategoryRequest
 import com.mag1c.youtube.domain.bookmark.service.BookmarkCategoryService
+import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -21,7 +22,7 @@ class BookmarkCategoryController(
     @PostMapping
     fun saveCategory(
         @UserId userId: Long,
-        @RequestBody req: BookmarkCategoryRequest
+        @Valid @RequestBody req: BookmarkCategoryRequest
     ): ResponseEntity<Void> {
         bookmarkCategoryService.saveCategory(userId, req)
         return ResponseEntity.noContent().build()

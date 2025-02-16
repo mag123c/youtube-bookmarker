@@ -16,6 +16,7 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web") // REST API
     implementation("org.springframework.boot:spring-boot-starter-data-jpa") // JPA
+    implementation("org.springframework.boot:spring-boot-starter-validation") // VALIDATION
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin") // JSON 직렬화
     implementation("mysql:mysql-connector-java:8.0.33") // MySQL 드라이버
     implementation("org.jetbrains.kotlin:kotlin-reflect") // 리플렉션 기능

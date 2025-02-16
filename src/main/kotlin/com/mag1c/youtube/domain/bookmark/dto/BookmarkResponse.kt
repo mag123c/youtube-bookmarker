@@ -1,11 +1,13 @@
 package com.mag1c.youtube.domain.bookmark.dto
 
 data class BookmarkResponse(
-    val videoId: String,
+    val id: Long,
+    val uuid: String,
     val title: String,
-    val category: String,
+    val url: String,
+    val userId: Long,
+    val categoryName: String,
+    val thumbnailUrl: String?,
     val customComment: String?,
-    val thumbnailUrl: String,
-    val publishedAt: String,
-    val viewCount: Long? = 0,
+    val publishedAt: String?
 )
