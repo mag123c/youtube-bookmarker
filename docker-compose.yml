@@ -10,8 +10,6 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
-      redis:
-        condition: service_started
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/youtube_bookmark?serverTimezone=UTC&characterEncoding=UTF-8
       SPRING_DATASOURCE_USERNAME: root
@@ -23,6 +21,7 @@ services:
       - "8080:8080"
     networks:
       - backend
+
 
   mysql:
     image: mysql:8.0
@@ -44,20 +43,8 @@ services:
       retries: 5
       start_period: 20s
 
-  redis:
-    image: redis:7.2
-    container_name: redis
-    restart: always
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
-    networks:
-      - backend
-
 volumes:
   mysql_data:
-  redis_data:
 
 networks:
   backend:
