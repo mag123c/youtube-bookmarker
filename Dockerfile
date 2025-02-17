@@ -17,5 +17,6 @@ RUN ./gradlew clean build -x test
 FROM bellsoft/liberica-openjdk-alpine:17
 WORKDIR /app
 COPY --from=builder /app/build/libs/*.jar app.jar
+COPY src/main/resources/application-production.yml /app/config/application-production.yml
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","app.jar"]
