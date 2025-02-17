@@ -17,7 +17,7 @@ jobs:
       - name: 🛠️ Create application.yml File
         run: |
           mkdir -p src/main/resources/
-          cat << 'EOF' > src/main/resources/application.yml
+          cat << 'EOF' > src/main/resources/application-production.yml
           ${{ secrets.APPLICATION_YML }}
           EOF
 
