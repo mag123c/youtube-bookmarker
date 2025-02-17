@@ -1,4 +1,4 @@
-package com.mag1c.youtube.domain.bookmark.controller
+package com.mag1c.youtube.domain.troller
 
 import com.mag1c.youtube.config.UserId
 import com.mag1c.youtube.domain.bookmark.dto.BookmarkRequest

@@ -23,7 +23,7 @@ object BookmarkMapper {
             category = category,
             thumbnailUrl = metadata?.thumbnailUrl ?: "EMPTY",
             customComment = req.customComment,
-            publishedAt = metadata?.publishedAt ?: "EMPTY"
+            publishedAt = metadata?.publishedAt ?: "EMPTY",
         )
     }
 
@@ -66,6 +66,7 @@ object BookmarkMapper {
             url = bookmark.url,
             userId = bookmark.user.id ?: throw IllegalArgumentException("User ID cannot be null"),
             categoryName = bookmark.category.name,
+            createdAt = bookmark.createdAt.toString(),
             thumbnailUrl = bookmark.thumbnailUrl,
             customComment = bookmark.customComment,
             publishedAt = bookmark.publishedAt

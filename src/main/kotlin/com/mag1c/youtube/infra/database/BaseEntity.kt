@@ -16,11 +16,12 @@ abstract class BaseEntity {
         protected set
 
     @CreationTimestamp
-    @Column(updatable = false, nullable = false)
+    @Column(updatable = false, nullable = false, columnDefinition = "TIMESTAMP")
     lateinit var createdAt: LocalDateTime
 
     @LastModifiedDate
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TIMESTAMP")
     var updatedAt: LocalDateTime = LocalDateTime.now()
         private set
+
 }

@@ -23,7 +23,7 @@ class YoutubeMetadataService(
      * 유튜브 서드파티 API로 영상 메타데이터 가져오기
      */
     fun getMetadata(url: String): YoutubeVideoResponseDto {
-        val (videoId, timestamp) = parseYouTubeUrlWithUri(url)
+        val videoId = parseYouTubeUrlWithUri(url)
 
         val result = try {
             restClient.get()
@@ -58,13 +58,13 @@ class YoutubeMetadataService(
         val item = youtubeApiResponse.items.firstOrNull()
             ?: throw IllegalArgumentException("YouTube API 응답에서 items가 비어있음!")
 
-        return YoutubeVideoResponseDto.from(item, timestamp)
+        return YoutubeVideoResponseDto.from(item)
     }
 
     /**
      * 유튜브 URL에서 videoId 및 timestamp(선택)를 추출
      */
-    private fun parseYouTubeUrlWithUri(url: String): Pair<String, String?> {
+    private fun parseYouTubeUrlWithUri(url: String): String {
         val uri = URI(url)
         val queryParams = uri.query
             ?.split("&")
@@ -77,9 +77,9 @@ class YoutubeMetadataService(
         val videoId = queryParams["v"]
             ?: throw IllegalArgumentException("Invalid YouTube URL: Video ID not found")
 
-        val timestamp = queryParams["t"]?.toString()
+//        val timestamp = queryParams["t"]?.toString()
 
-        return videoId to timestamp
+        return videoId
     }
 
     fun sendMessage(name: String, message: String) {

@@ -27,7 +27,7 @@ data class YoutubeSnippet(
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class YoutubeThumbnails(
-    val medium: YoutubeThumbnailDetail
+    val default: YoutubeThumbnailDetail
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)

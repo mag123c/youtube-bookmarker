@@ -7,6 +7,7 @@ data class BookmarkResponse(
     val url: String,
     val userId: Long,
     val categoryName: String,
+    val createdAt: String,
     val thumbnailUrl: String?,
     val customComment: String?,
     val publishedAt: String?
