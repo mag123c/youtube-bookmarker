@@ -1,0 +1,28 @@
+name: 🚀 DEPLOY
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  checkout:
+    runs-on: [ self-hosted, youtube-bookmarker ]
+    steps:
+      - name: 🛒 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 📄 Create .env File
+        run: echo "${{ secrets.ENV }}" > .env
+
+      - name: 🛠️ Create application.yml File
+        run: |
+          mkdir -p src/main/resources/
+          echo "${{ secrets.APPLICATION_YML }}" > src/main/resources/application-production.yml
+
+  build:
+    needs: checkout
+    runs-on: [ self-hosted, youtube-bookmarker ]
+    steps:
+      - name: 🏗️ Build and Deploy
+        run: |
+          sudo docker-compose -f docker-compose-production.yml up -d --build
