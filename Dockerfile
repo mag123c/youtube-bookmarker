@@ -10,6 +10,7 @@ RUN chmod +x gradlew
 RUN ./gradlew dependencies --no-daemon
 
 COPY . .
+RUN chmod +x gradlew
 RUN ./gradlew clean build -x test
 
 # Run stage
