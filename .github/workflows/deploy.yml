@@ -14,18 +14,10 @@ jobs:
       - name: 📄 Create .env File
         run: echo "${{ secrets.ENV }}" > .env
 
-      - name: 🛠️ Create application.yml File
-        run: |
-          mkdir -p src/main/resources/
-          cat << 'EOF' > src/main/resources/application-production.yml
-          ${{ secrets.APPLICATION_YML }}
-          EOF
-
-
   build:
     needs: checkout
     runs-on: [ self-hosted ]
     steps:
       - name: 🏗️ Build and Deploy
         run: |
-          sudo docker-compose -f docker-compose-production.yml up -d --build
+          sudo docker-compose -f docker-compose-prod.yml up -d --build
